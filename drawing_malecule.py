@@ -75,4 +75,6 @@ fig, axes = plt.subplots(1, 3, figsize=(21, 6.5))
 for ax, rid in zip(axes, ids):
     draw_molecule_graph(rid, ax=ax)
 plt.tight_layout()
-plt.show()d
+plt.show()
+import warnings
+warnings.filterwarnings('ignore', message='.*eval_set.*')
