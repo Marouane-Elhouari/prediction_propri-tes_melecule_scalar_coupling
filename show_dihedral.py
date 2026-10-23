@@ -18,9 +18,9 @@ def mol_data(mol):
     a, b = ssx[k], ssx[k + 1]
     xyz = np_xyz[a:b].astype('float64')
     at = np_atoms[a:b]
-    d = np.linalg.norm(xyz[None, :, :] - xyz[:, None, :], axis=2)
+    d = np.linalg.norm(xyz[None, :, :] - xyz[:, None, :], axis=2)# CALCUL the norm of the vector
     is_H = at == 0
-    cutoff = np.where(is_H[:, None] | is_H[None, :], H_CUTOFF, BOND_CUTOFF)
+    cutoff = np.where(is_H[:, None] | is_H[None, :], H_CUTOFF, BOND_CUTOFF) # the list here for adding the all element of the lsit and adding a new dimension like a column 
     B = (d < cutoff) & (d > 0)
     return xyz, at, B
 
@@ -29,7 +29,7 @@ def path_3J(B, i, j):
     T = B[i][:, None] & B & B[j][None, :]
     T[j, :] = False
     T[:, i] = False
-    idx = np.argwhere(T)
+    idx = np.argwhere(T) #for foundng the index of the elements who are realizes the condition
     return (int(idx[0][0]), int(idx[0][1])) if len(idx) else None
 
 
@@ -80,7 +80,7 @@ def show_dihedral(row_id=None, type_='3JHH', near=None, n_try=300):
     h = xyz[i] - xyz[m]
     e_up = h - np.dot(h, u) * u
     e_up /= np.linalg.norm(e_up)
-    e_right = np.cross(u, e_up)
+    e_right = np.cross(u, e_up) #prodcut vector
 
     def proj(k):
         r = xyz[k] - xyz[m]
